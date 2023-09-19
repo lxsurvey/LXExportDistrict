@@ -312,6 +312,10 @@ class LXExportDistrict:
             input_filename = self.dlg.comboBox.currentText()
             idxCrs = self.dlg.comboBoxCrs.currentIndex()
 
+
+
+
+
             self.iface.messageBar().pushMessage("msg", "input_filename(layer): " + input_filename, level=Qgis.Info)
             self.iface.messageBar().pushMessage("msg", "QGIS version check: " + str(Qgis.QGIS_VERSION_INT), level=Qgis.Info)
             if Qgis.QGIS_VERSION_INT < 29999:
@@ -319,8 +323,14 @@ class LXExportDistrict:
                                                     "This plug-in is compatible on QGIS 3.0 above. It won't work for this computer. Please upgrade your QGIS to the latest one",
                                                     level=Qgis.Info)
 
-            csv_uri = 'C:/Workspace/pnucode.csv'
-            csv_uri = 'file:///C:/Workspace/pnucode.csv?delimiter=,&encoding=EUC-KR'
+            self.iface.messageBar().pushMessage("msg", "cwd: " + os.path.dirname(os.path.realpath(__file__)), level=Qgis.Info)
+
+            #csv_uri = 'file:///C:/Workspace/pnucode.csv?delimiter=,&encoding=EUC-KR'
+
+            #csv_uri = "file:///" + str(os.path.dirname(os.path.realpath(__file__)) + "/pnucode.csv?delimiter=,&encoding=EUC-KR"
+            #csv_uri = "" + csv_uri + ""
+            csv_uri = 'file:///' + os.path.dirname(os.path.realpath(__file__)) + '/pnucode.csv?delimiter=,&encoding=EUC-KR'
+
             csv = QgsVectorLayer(csv_uri, 'pnucode', 'delimitedtext')
             QgsProject.instance().addMapLayer(csv)
 
