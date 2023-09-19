@@ -1,4 +1,4 @@
-# GetBaseLine <img src="https://github.com/lxsurvey/LXExportDistrict/blob/main/icon.png?raw=true" alt="GetBaseLine" width="90"/>
+# LXExportDistrict <img src="https://github.com/lxsurvey/LXExportDistrict/blob/main/icon.png?raw=true" alt="GetBaseLine" width="90"/>
 A QGIS plugin for exporting selected feature
 
 
