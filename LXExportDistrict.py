@@ -323,20 +323,28 @@ class LXExportDistrict:
                                                     "This plug-in is compatible on QGIS 3.0 above. It won't work for this computer. Please upgrade your QGIS to the latest one",
                                                     level=Qgis.Info)
 
-            self.iface.messageBar().pushMessage("msg", "cwd: " + os.path.dirname(os.path.realpath(__file__)), level=Qgis.Info)
-
-            #csv_uri = 'file:///C:/Workspace/pnucode.csv?delimiter=,&encoding=EUC-KR'
-
-            #csv_uri = "file:///" + str(os.path.dirname(os.path.realpath(__file__)) + "/pnucode.csv?delimiter=,&encoding=EUC-KR"
-            #csv_uri = "" + csv_uri + ""
-            csv_uri = 'file:///' + os.path.dirname(os.path.realpath(__file__)) + '/pnucode.csv?delimiter=,&encoding=EUC-KR'
-
+            # csv 레이어 가져오기
+            is_pnucode = False
+            layers = QgsProject.instance().layerTreeRoot().children()
+            for layer in layers:
+                if "pnucode" == layer.name():
+                    is_pnucode = True
+                    QgsProject.instance().removeMapLayer(layer.layer().id())
+                    break
+            self.iface.messageBar().pushMessage("msg", "cwd: " + os.path.dirname(os.path.realpath(__file__)),
+                                                level=Qgis.Info)
+            # csv_uri = 'file:///C:/Workspace/pnucode.csv?delimiter=,&encoding=EUC-KR'
+            csv_uri = 'file:///' + os.path.dirname(
+                os.path.realpath(__file__)) + '/pnucode.csv?delimiter=,&encoding=EUC-KR'
             csv = QgsVectorLayer(csv_uri, 'pnucode', 'delimitedtext')
             QgsProject.instance().addMapLayer(csv)
+
+
 
             # 입력레이어가 레이어 형식인 경우
             if ":/" not in input_filename:
                 is_filewriter = True
+                layers = QgsProject.instance().layerTreeRoot().children()
                 for layer in layers:
                     if input_filename == layer.name():
                         if hasattr(layer, 'layer'):
@@ -373,7 +381,7 @@ class LXExportDistrict:
                 while dup_chk_fin == False:
                     file_num += 1
                     dup_chk_num = 0
-
+                    layers = QgsProject.instance().layerTreeRoot().children()
                     for layer in layers:
                         if new_name == layer.name():
                             self.iface.messageBar().pushMessage("msg", "The same layer exists. Renaming " + new_name,
