@@ -16,7 +16,7 @@ tracker=https://github.com/lxsurvey/LXExportDistrict
 repository=https://github.com/lxsurvey/LXExportDistrict
 # End of mandatory metadata
 
-# Recommended items:
+# Recommended items: 
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
