@@ -276,6 +276,7 @@ class LXExportDistrict:
         layers = QgsProject.instance().layerTreeRoot().children()
         self.dlg.comboBox.addItems([layer.name() for layer in layers])
         self.dlg.comboBoxCrs.addItems(["ESPG:5186"])
+        self.dlg.comboBoxCrs.addItems(["변환안함"])
 
         self.dlg.labelResult.setText("")
 
@@ -426,12 +427,14 @@ class LXExportDistrict:
                     print("Copy Layer loaded!")
             # E 입력레이어가 파일 형식인 경우
 
+            # 좌표계 변환처리
             if idxCrs == 0:
                 crs = 5186
+                vlayer.setCrs(QgsCoordinateReferenceSystem(crs))
+                self.iface.messageBar().pushMessage("msg", "Projected CRS + EPSG:" + str(crs), level=Qgis.Info)
             else:
-                crs = 5186
-            vlayer.setCrs(QgsCoordinateReferenceSystem(crs))
-            self.iface.messageBar().pushMessage("msg", "Projected CRS + EPSG:"+ str(crs), level=Qgis.Info)
+                pass
+
 
             pnu_field_cnt = 0
             joinpnu_field_cnt = 0

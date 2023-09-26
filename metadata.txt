@@ -6,7 +6,7 @@
 name=LXExportDistrict
 qgisMinimumVersion=3.0
 description=Export administrative district
-version=1.0
+version=1.0.2
 author=LX
 email=celesti@lx.or.kr
 
